@@ -194,11 +194,18 @@ CGFloat const kLARSAdContainerHeightPod = 50.0f;
     else{//portrait
         TOLLog(@"View is portrait");
         
-        if (pinningLocation == LARSAdControllerPinLocationBottom) {
-            yOrigin = MAX(parentHeight, parentWidth);
+        if (parentWidth > parentHeight) {
+            if (pinningLocation == LARSAdControllerPinLocationBottom) {
+                yOrigin = parentHeight;
+            }
+            width = parentWidth;
+        } else {
+            if (pinningLocation == LARSAdControllerPinLocationBottom) {
+                yOrigin = MAX(parentHeight, parentWidth);
+            }
+            width = MIN(parentHeight, parentWidth);
+            self.lastOrientationWasPortrait = YES;
         }
-        width = MIN(parentHeight, parentWidth);
-        self.lastOrientationWasPortrait = YES;
     }
     
     CGFloat height;
